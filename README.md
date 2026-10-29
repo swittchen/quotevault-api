@@ -1,109 +1,70 @@
 # QuoteVault API
 
-A simple RESTful API built with Spring Boot and PostgreSQL to manage inspirational quotes.
+![Java 17](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot 3](https://img.shields.io/badge/Spring%20Boot-3.4-6db33f)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
-This project is designed as a learning playground and can be used as a backend service to store, retrieve, and manage quotes. It uses UUIDs as primary keys and supports containerized database deployment via Docker Compose.
+Minimal REST service with Spring Boot, Spring Data JPA and PostgreSQL in Docker. It stores quotes and returns a random one. A small learning project for the basic Spring Boot stack: entity, repository, controller, database seeding.
 
----
+![Request flow](docs/flow.svg)
 
-## 🚀 Features
+## What it does
 
-- Store quotes with author and content
-- Retrieve all quotes
-- Get a random quote
-- Easily extendable (CRUD-ready)
-- PostgreSQL with persistent Docker volume
-- UUID-based entity IDs
+- Stores quotes (`author`, `content`) in PostgreSQL via Spring Data JPA
+- Returns a random quote
+- Seeds five sample quotes on first start (`initdb/init.sql`)
+- Runs the database in Docker with a persistent volume
 
----
+## API
 
-## 🛠️ Tech Stack
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/quotes/random` | a random quote |
+| POST | `/api/quotes` | add a quote |
 
-- Java 17
-- Spring Boot 3
-- Spring Data JPA
-- PostgreSQL
-- Docker & Docker Compose
-- Maven
+```bash
+curl http://localhost:8080/api/quotes/random
 
----
+curl -X POST http://localhost:8080/api/quotes \
+  -H "Content-Type: application/json" \
+  -d '{"author":"Grace Hopper","content":"The most dangerous phrase is: we have always done it this way."}'
+```
 
-## 📦 Getting Started
+## Run locally
 
-### 1. Clone the repository
+Requirements: Java 17, Docker.
 
 ```bash
 git clone https://github.com/swittchen/quotevault-api.git
 cd quotevault-api
+docker compose up -d          # PostgreSQL on localhost:5432, seeded from initdb/init.sql
+./mvnw spring-boot:run        # API on http://localhost:8080
 ```
 
-### 2. Start PostgreSQL via Docker Compose
+Database name, user and password are set in `docker-compose.yml` and must match `application.yml`.
 
-```bash
-docker-compose up -d
-```
-
-> This will start a PostgreSQL container with the database `quotevault` and initialize it using the `init.sql` file.
-
-### 3. Run the Spring Boot application
-
-You can run the app using your IDE or:
-
-```bash
-./mvnw spring-boot:run
-```
-
----
-
-## ⚙️ Configuration
-
-Make sure your `application.properties` contains:
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/quotevault
-spring.datasource.username=sergei
-spring.datasource.password=secret
-spring.jpa.hibernate.ddl-auto=update
-```
-
----
-
-## 🔗 API Endpoints (Planned)
-
-| Method | Endpoint         | Description                |
-|--------|------------------|----------------------------|
-| GET    | `/api/quotes`    | Get all quotes             |
-| GET    | `/api/quotes/random` | Get a random quote      |
-| POST   | `/api/quotes`    | Add a new quote            |
-| PUT    | `/api/quotes/{id}` | Update an existing quote |
-| DELETE | `/api/quotes/{id}` | Delete a quote           |
-
----
-
-## 📂 Project Structure
+## Project structure
 
 ```
 quotevault-api/
-├── src/
-│   └── main/
-│       └── java/com/sergei/quotevault/
-│           ├── entity/
-│           ├── repository/
-│           ├── controller/
-│           └── QuoteVaultApplication.java
-├── initdb/init.sql
-├── docker-compose.yml
-└── README.md
+├── src/main/java/com/sergei/quotevault/
+│   ├── QuotevaultApplication.java
+│   ├── controller/QuoteController.java
+│   ├── entity/Quote.java
+│   └── repository/QuoteRepository.java
+├── initdb/init.sql          # table + sample data
+├── application.yml          # datasource and JPA settings
+└── docker-compose.yml       # PostgreSQL 15
 ```
 
----
+## Possible next steps
 
-## 📖 License
+- [ ] `GET /api/quotes` (paged), `PUT` and `DELETE`
+- [ ] Validation and a 404 when no quotes exist
+- [ ] Integration tests with Testcontainers
+- [ ] Containerise the API itself
 
-This project is open source and available under the [MIT License](LICENSE).
+## License
 
----
-
-## 🙌 Contributions
-
-Pull requests are welcome! Feel free to fork this project and improve it.
+[MIT](LICENSE)
