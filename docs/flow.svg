@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="760" height="200" rx="12" fill="#ffffff"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect x="20" y="60" width="140" height="80" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="90" y="95" text-anchor="middle" font-size="15" font-weight="600" fill="#0c4a6e">Client</text>
+  <text x="90" y="117" text-anchor="middle" font-size="12" fill="#0c4a6e">curl / browser</text>
+
+  <rect x="220" y="40" width="300" height="120" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="370" y="70" text-anchor="middle" font-size="15" font-weight="600" fill="#14532d">Spring Boot 3 (Java 17)</text>
+  <text x="370" y="95" text-anchor="middle" font-size="12" fill="#14532d">QuoteController  →  QuoteRepository</text>
+  <text x="370" y="117" text-anchor="middle" font-size="12" fill="#14532d">Spring Data JPA · entity Quote</text>
+  <text x="370" y="139" text-anchor="middle" font-size="12" fill="#15803d">:8080/api/quotes</text>
+
+  <rect x="580" y="60" width="160" height="80" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="660" y="92" text-anchor="middle" font-size="15" font-weight="600" fill="#3b0764">PostgreSQL 15</text>
+  <text x="660" y="114" text-anchor="middle" font-size="12" fill="#3b0764">Docker · init.sql seed</text>
+
+  <line x1="160" y1="100" x2="216" y2="100" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="520" y1="100" x2="576" y2="100" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+  <text x="380" y="188" text-anchor="middle" font-size="12" fill="#64748b">Minimal REST service · learning project</text>
+</svg>
